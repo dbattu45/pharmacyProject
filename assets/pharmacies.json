@@ -1,0 +1,20 @@
+{
+  "pharmacies": [
+  {
+  "name": "ReCept",
+  "pharmacyId": "NRxPh-HLRS"
+  },
+  {
+  "name": "My Community Pharmacy",
+  "pharmacyId": "NRxPh-BAC1"
+  },
+  {
+  "name": "MedTime Pharmacy",
+  "pharmacyId": "NRxPh-SJC1"
+  },
+  {
+  "name": "NY Pharmacy",
+  "pharmacyId": "NRxPh-ZEREiaYq"
+  }
+  ]
+  }
