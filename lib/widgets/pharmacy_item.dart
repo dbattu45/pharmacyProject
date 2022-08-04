@@ -1,6 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:pharmacies2/pharmacy_details.dart';
+import 'package:pharmacies2/widgets/pharmacy_details.dart';
 import 'package:pharmacies2/providers/pharmacy.dart';
 
 class PharmacyItem extends StatelessWidget {

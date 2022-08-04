@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:pharmacies2/order_details.dart';
-import 'package:pharmacies2/pharmacy_item.dart';
+import 'package:pharmacies2/widgets/order_details.dart';
+import 'package:pharmacies2/widgets/pharmacy_item.dart';
 import 'package:pharmacies2/providers/pharmacies.dart';
 import 'package:pharmacies2/providers/pharmacy.dart';
 import 'package:provider/provider.dart';

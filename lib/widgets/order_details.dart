@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:pharmacies2/home_page.dart';
-import 'package:pharmacies2/medication_item.dart';
+import 'package:pharmacies2/widgets/home_page.dart';
+import 'package:pharmacies2/widgets/medication_item.dart';
 import 'package:pharmacies2/providers/medication.dart';
 import 'package:pharmacies2/providers/pharmacy.dart';
 import 'package:provider/provider.dart';
-import 'providers/pharmacies.dart';
+import '../providers/pharmacies.dart';
 
 class OrderDetails extends StatefulWidget {
   const OrderDetails({Key? key}) : super(key: key);
@@ -45,46 +45,55 @@ class _OrderDetailsState extends State<OrderDetails> {
     }
   }
 
-  onConfirmPress() {}
+  Future<bool> _onWillPop() async {
+    Navigator.of(context).pop(true);
+    closestPharmacy.medications.clear();
+    return Future<bool>.value(false);
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Order details'),
-        actions: [
-          ElevatedButton(
-            child: const Text(
-              'Confirm',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+    return WillPopScope(
+      onWillPop: () => _onWillPop(),
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Order details'),
+          actions: [
+            ElevatedButton(
+              child: const Text(
+                'Confirm',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              ),
+              onPressed: () {
+                if (closestPharmacy.medications.isNotEmpty) {
+                  closestPharmacy.isOrderedFrom = true;
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (_) {
+                        return const HomePage();
+                      },
+                    ),
+                  );
+                }
+              },
+            )
+          ],
+        ),
+        body: Column(
+          children: [
+            Expanded(
+              child: ListView(
+                children: [
+                  ...medications.map(
+                    (Medication m) {
+                      return MedicationItem(med: m, pharmacy: closestPharmacy);
+                    },
+                  ),
+                ],
+              ),
             ),
-            onPressed: () {
-              closestPharmacy.isOrderedFrom = true;
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (_) {
-                    return const HomePage();
-                  },
-                ),
-              );
-            },
-          )
-        ],
-      ),
-      body: Column(
-        children: [
-          Expanded(
-            child: ListView(
-              children: [
-                ...medications.map(
-                  (Medication m) {
-                    return MedicationItem(med: m, pharmacy: closestPharmacy);
-                  },
-                ),
-              ],
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
